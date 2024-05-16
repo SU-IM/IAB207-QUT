@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home · Enterpark</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/styles/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Enterpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <!-- My Page should be created in the menu bar after logging in, 
+                        but now it can be viewed even when logged out for example purposes. -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="userBookingHistory.html">My page</a>
+                    </li>
+                </ul>
+                <div class="btn-group" role="group">
+                    <a class="btn login-button" href="indexLoggedin.html">Login</a>
+                    <a class="btn login-button" href="#">Sign up</a>
+                </div>
+                <!-- By request, It need to be able to create and modify events while logged in, 
+                    but since this is a prototype framework, it's going to skip to the creation screen. -->
+                    <a class="btn login-button ms-2" href="{{ url_for('main.create_event') }}">Create Event</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nav bar display logic according to scrolling -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var lastScrollTop = 0;
+            var navbar = document.querySelector('.navbar');
+            var debounceTimer;
+
+            window.addEventListener("scroll", function () {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(function () {
+                    if (scrollTop > lastScrollTop) {
+                        // Scroll down
+                        navbar.style.top = "-80px";
+                    } else {
+                        // Scroll up
+                        navbar.style.top = "0";
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                }, 100);
+            });
+        });
+    </script>
+
+    <!-- Main background area: Image Carousel-->
+    <div class="background-image">
+        <div class="container">
+            <div id="carouselExampleCaptions" class="carousel slide " data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="static/img/ive_concert.jpeg" class="d-block w-100" alt="...">
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>IVE the 1ST World Tour SHOW WHAT i HAVE</h5>
+                            <p>Get ready to DIVE into IVE! The K-pop sensations will bring their 1ST WORLD TOUR 'SHOW
+                                WHAT I HAVE' to Qudos Bank Arena Saturday 28 July 2024!</p>
+                            <a href="eventDetail.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/img/hiphop.jpeg" class="d-block w-100" alt="...">
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>California Hip Hop Music festival</h5>
+                            <p>"Join us on May 15th for the California Hip Hop Music festival featuring performances by
+                                MC Sunshine, DJ Blaze, and more!"</p>
+                            <a href="eventDetail.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="static/img/beauty_and_the_beast.jpeg" class="d-block w-100" alt="...">
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Beauty and the Beast the Musical in Brisbane</h5>
+                            <p>We proudly invite you to 'Be Our Guest' at Disney's brand-new production of Beauty and
+                                the Beast.</p>
+                            <a href="eventDetail.html" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Search area -->
+    <div class="container custom-container">
+        <div class="card search-container rounded-3">
+            <div class="card-body">
+                <form>
+                    <div class="row g-2 form-group">
+                        <div class="col-sm">
+                            <h6>Search Event</h6>
+                            <input type="text" class="form-control" aria-label="Search Event">
+                        </div>
+                        <div class="col-sm">
+                            <h6>Place</h6>
+                            <input type="text" class="form-control" aria-label="Place">
+                        </div>
+                        <div class="col-sm">
+                            <h6>Date</h6>
+                            <input type="date" class="form-control" id="event-date" aria-label="Event Date">
+                        </div>
+                        <div class="col-sm d-flex align-items-end">
+                            <button type="button" class="btn btn-primary button w-100">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Calendar -->
+    <div class="container calendar-container">
+        <div class="row justify-content-between">
+            <div class="col-auto my-3">
+                <h1 class="text">Upcoming Events</h1>
+            </div>
+            <div class="col-auto my-3">
+                <div class="dropdown d-inline mx-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown 1
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action 1</a></li>
+                        <li><a class="dropdown-item" href="#">Action 2</a></li>
+                        <!-- More items here -->
+                    </ul>
+                </div>
+                <div class="dropdown d-inline mx-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown 2
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <li><a class="dropdown-item" href="#">Action 2</a></li>
+                        <!-- More items here -->
+                    </ul>
+                </div>
+                <div class="dropdown d-inline mx-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown 3
+                    </button>
+                    <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton3">
+                        <li><a class="dropdown-item" href="#">Action 3</a></li>
+                        <!-- More items here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event cards -->
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/hiphop.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">April 28</h6>
+                        <h5 class="card-title">California Hip Hop Music festival</h5>
+                        <h6 class="card-subtitle text-body-secondary">Monterey County Fairgrounds</h6>
+                        <p class="card-text font-bold">From $139.00</p>
+                        <h6 class="card-subtitle text-body-secondary">CHMF</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-open">Open</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/beauty_and_the_beast.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">April 30</h6>
+                        <h5 class="card-title">Beauty and the Beast the Musical in Brisbane</h5>
+                        <h6 class="card-subtitle text-body-secondary">Queensland Performing Arts Centre</h6>
+                        <p class="card-text font-bold">From $89.00</p>
+                        <h6 class="card-subtitle text-body-secondary">Disney</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-open">Open</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/classical.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">May 14</h6>
+                        <h5 class="card-title">Symphony Orchestra Concert</h5>
+                        <h6 class="card-subtitle text-body-secondary">Sydney Opera House</h6>
+                        <p class="card-text font-bold">From $199.00</p>
+                        <h6 class="card-subtitle text-body-secondary">GSOC</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-sold-out">Sold out</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/concert_dance.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">June 14</h6>
+                        <h5 class="card-title">Cosole Passito Ballet - Mallard's Lake</h5>
+                        <h6 class="card-subtitle text-body-secondary">Four Seasons Centre - Toronto</h6>
+                        <p class="card-text font-bold">From $85.00</p>
+                        <h6 class="card-subtitle text-body-secondary">S&Co</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-cancelled">Cancelled</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/wicked.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">June 14</h6>
+                        <h5 class="card-title">'Wicked' the Musical in Korea</h5>
+                        <h6 class="card-subtitle text-body-secondary">National Theater of Korea - Main hall Hae</h6>
+                        <p class="card-text font-bold">From $89.00</p>
+                        <h6 class="card-subtitle text-body-secondary">ConG</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-upcoming">Upcoming</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="col-md-4 mb-4">
+                <div class="card event-card">
+                    <img src="static/img/ive_concert.jpeg" class="card-img-top" alt="Event">
+                    <div class="card-body">
+                        <h6 class="card-date">July 28</h6>
+                        <h5 class="card-title">IVE the 1ST World Tour SHOW WHAT i HAVE | Sydney</h5>
+                        <h6 class="card-subtitle text-body-secondary">Qudos Bank Arena</h6>
+                        <p class="card-text font-bold">From $99.00</p>
+                        <h6 class="card-subtitle text-body-secondary">Starship</h6>
+                        <a href="eventDetail.html" class="stretched-link"></a>
+                        <span class="badge badge-upcoming">Upcoming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mb-4">
+            <button type="button" btn-primary class="btn button">Load More</button>
+        </div>
+    </div>
+
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <section class="d-flex justify-content-center justify-content-lg-between p-4">
+            <div class="container-fluid">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-md-2">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your email address"
+                                aria-label="Recipient's email">
+                            <button class="btn btn-primary" type="button" id="subscription-button">Subscribe
+                                Now</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 text-md-end">
+                        <button onclick="window.location.href='https://facebook.com';" class="btn text-reset">
+                            <img src="static/img/facebook.svg" alt="facebook" class="icon-large">
+                        </button>
+                        <button onclick="window.location.href='https://twitter.com';" class="btn text-reset">
+                            <img src="static/img/twitter-x.svg" alt="twitter" class="icon-large">
+                        </button>
+                        <button onclick="window.location.href='https://instagram.com';" class="btn text-reset">
+                            <img src="static/img/instagram.svg" alt="instagram" class="icon-large">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
