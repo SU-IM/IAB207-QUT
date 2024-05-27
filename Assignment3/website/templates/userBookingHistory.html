@@ -10,7 +10,7 @@
     <!-- Bootstrap-Select CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
         rel="stylesheet">
-    <link rel="stylesheet" href="static/style/styles.css">
+    <link rel="stylesheet" href="../static/styles/styles.css">
 </head>
 
 <body>
@@ -37,7 +37,7 @@
                     </li>
                 </ul>
                 <a class="btn login-button me-2" href="index.html">Logout</a>
-                <a class="btn login-button" href="eventCreate.html">Create Event</a>
+                <a class="btn login-button ms-2" href="{{ url_for('main.create_event') }}">Create Event</a>
             </div>
             </ul>
         </div>
