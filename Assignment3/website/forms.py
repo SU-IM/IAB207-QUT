@@ -24,7 +24,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
     
 class EventsForm(FlaskForm):
-    image = FileField('Event Image', validators=[
+    image = FileField('Thumbnail image', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, JPEG, png, jpg, jpeg')])
     title = StringField('Event Name', validators=[InputRequired()])
@@ -32,13 +32,13 @@ class EventsForm(FlaskForm):
     startdate = StringField('Start Date', validators=[InputRequired()])
     enddate = StringField('End Date', validators=[InputRequired()])
     performancetime = StringField('Performance Time', validators=[InputRequired()])
-    ticketopendate = StringField('Ticket Open Date', validators=[InputRequired()])
-    ticketclosedate = StringField('Ticket Close Date', validators=[InputRequired()])
+    ticketopendate = StringField('Ticket Opening Date', validators=[InputRequired()])
+    ticketclosedate = StringField('Ticket Closing Date', validators=[InputRequired()])
     ticketprice = StringField('Ticket Price', validators=[InputRequired()])
-    numberoftickets = StringField('Number of Tickets', validators=[InputRequired()])
-    description = TextAreaField('Description',
+    numberoftickets = StringField('Total Number of Tickets', validators=[InputRequired()])
+    description = TextAreaField('Short Description',
             validators=[InputRequired()])
-    about = TextAreaField('About', validators=[InputRequired()])
+    about = TextAreaField('About this event', validators=[InputRequired()])
     
     submit = SubmitField("Create")
     

@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"Name: {self.username}"
 
-class Event(db.Models, UserMixin):
+class Event(db.Model, UserMixin):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(400))
