@@ -31,14 +31,17 @@ def create_app():
 
     from . import views
     app.register_blueprint(views.main_bp)
-
+    from . import events
+    app.register_blueprint(events.destbp)
     from . import auth
     app.register_blueprint(auth.auth_bp)
     
+    # this creates a dictionary of variables that are available
+    # to all html templates
     @app.context_processor
     def get_context():
-        year = datetime.datetime.today().year
-        return dict(year=year)
+      year = datetime.datetime.today().year
+      return dict(year=year)
 
     return app
 
