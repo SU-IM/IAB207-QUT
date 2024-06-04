@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
-from wtforms.validators import InputRequired, Email, EqualTo
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField,
+from wtforms.validators import InputRequired, Email, EqualTo, DataRequired
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
@@ -22,7 +22,8 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField("Confirm Password")
     #submit button
     submit = SubmitField("Register")
-    
+
+#event create    
 class EventsForm(FlaskForm):
     image = FileField('Thumbnail image', validators=[
         FileRequired(message='Image cannot be empty'),
@@ -41,4 +42,15 @@ class EventsForm(FlaskForm):
     about = TextAreaField('About this event', validators=[InputRequired()])
     
     submit = SubmitField("Create")
+    
+#booking page
+# class BookingForm(FlaskForm):
+#     event_id = SelectField('Event', coerce=int, validators={DataRequired()})
+#     ticket_number = IntegerField('Number of Tickets', validators=[DataRequired()])
+#     name = StringField('Your Name', validators=[DataRequired()])
+#     contact = StringField('Contact Number', validators=[DataRequired()])
+#     booking_date = SelectField('Booking Date', validators=[DataRequired()])
+#     payment_method = SelectField('Payment Method', choices=['PayPal', 'Credit Card'], validators=[DataRequired()]) #still have to fix
+    
+#     submit = SubmitField("Book Now")
     

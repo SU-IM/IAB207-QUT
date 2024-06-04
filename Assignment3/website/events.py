@@ -7,7 +7,26 @@ from werkzeug.utils import secure_filename
 # additional import:
 from flask_login import login_required, current_user
 
-destbp = Blueprint('events', __name__, url_prefix='/events')
+crtbp = Blueprint('events', __name__, url_prefix='/events')
+
+@crtbp.route('/create', methods=['GET', 'POST'])
+@login_required
+def create():
+  print('Method type: ', request.method)
+  form = EventsForm()
+  if form.validate_on_submit():
+    # call the function that checks and returns image
+    db_file_path = check_upload_file(form)
+    event = Event(name=form.name.data,description=form.event.data, 
+    image=db_file_path,currency=form.currency.data)
+    # add the object to the db session
+    db.session.add(event)
+    # commit to the database
+    db.session.commit()
+    flash('Successfully created new event!', 'success')
+    # Always end with redirect when form is valid
+    return redirect(url_for('event.create'))
+  return render_template('event/create.html', form=form)
 
 
 

@@ -49,4 +49,7 @@ def internal_server_error(e):
 #         flash('Your event has been created!', 'success')
 #         return redirect(url_for('main.home'))
 #     return render_template('eventCreate.html', form=form)
+
+
+#
         

@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"Name: {self.username}"
 
+# create event
 class Event(db.Model, UserMixin):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
@@ -30,3 +31,18 @@ class Event(db.Model, UserMixin):
     
     def __repr__(self):
         return f"Title: {self.title}"
+    
+    
+#Booking page 
+# class Booking(db.Model):
+#     __tablename__ = 'booking'
+#     eventselect = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+#     ticketnumber = db.Column(db.Integer, nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     contactnumber = db.Column(db.String(100), nullable=False)
+#     bookingdate = db.Column(db.DateTime, nullable=False)
+#     paymentmethod = db.Column(db.String(100), nullable=False)
+    
+#     def __repr__(self):
+#         return f"<Booking: {self.id}>"
+    
