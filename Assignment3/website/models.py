@@ -6,18 +6,23 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), index=True, unique=True, nullable=False)
     email = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-
+    password_hash = db.Column(db.String(255), nullable=False)    
+    
+    events = db.relationship('Event', backref='user')
+    
     def __repr__(self):
         return f"Name: {self.username}"
 
 # create event
-class Event(db.Model, UserMixin):
+class Event(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(400))
     title = db.Column(db.String(100), nullable=False)
-    #location = db.Column(db.String(100), nullable=False)
+    country = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(100), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    detailed_location = db.Column(db.String(100), nullable=False)
     startdate = db.Column(db.DateTime, nullable=False)
     enddate = db.Column(db.DateTime, nullable=False)
     performancetime = db.Column(db.Integer, nullable=False)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField,
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField, TimeField, DateField
 from wtforms.validators import InputRequired, Email, EqualTo, DataRequired
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -29,18 +29,22 @@ class EventsForm(FlaskForm):
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, JPEG, png, jpg, jpeg')])
     title = StringField('Event Name', validators=[InputRequired()])
-    #location = StringField('Location', validators=[InputRequired()])
-    startdate = StringField('Start Date', validators=[InputRequired()])
-    enddate = StringField('End Date', validators=[InputRequired()])
+    startdate = DateField('Start Date', validators=[InputRequired()])
+    enddate = DateField('End Date', validators=[InputRequired()])
     performancetime = StringField('Performance Time', validators=[InputRequired()])
-    ticketopendate = StringField('Ticket Opening Date', validators=[InputRequired()])
-    ticketclosedate = StringField('Ticket Closing Date', validators=[InputRequired()])
+    ticketopendate = DateField('Ticket Opening Date', validators=[InputRequired()])
+    ticketopentime = TimeField('Ticket Opening Time', validators=[DataRequired()])
+    ticketclosedate = DateField('Ticket Closing Date', validators=[InputRequired()])
+    ticketclosetime = TimeField('Ticket Closing Time', validators=[DataRequired()])
     ticketprice = StringField('Ticket Price', validators=[InputRequired()])
-    numberoftickets = StringField('Total Number of Tickets', validators=[InputRequired()])
+    numberofticket = IntegerField('Total Number of Tickets', validators=[InputRequired()])
     description = TextAreaField('Short Description',
             validators=[InputRequired()])
     about = TextAreaField('About this event', validators=[InputRequired()])
-    
+    country = SelectField('Country', choices=[('USA', 'USA'), ('Canada', 'Canada'), ('UK', 'United Kingdom'), ('AU', 'Australia'), ('SouthKorea', 'South Korea')], validators=[DataRequired()])
+    state = SelectField('State', choices=[], validators=[DataRequired()])
+    city = SelectField('City', choices=[], validators=[DataRequired()])
+    detailed_location = StringField('Detailed Location', validators=[DataRequired()])
     submit = SubmitField("Create")
     
 #booking page
