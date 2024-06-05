@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flask import Blueprint, render_template, url_for, redirect, flash, request, jsonify
 from .models import Event
 from datetime import datetime
 from . import db
@@ -49,6 +49,14 @@ def search():
         events = Event.query.all()
         
     return render_template('index.html', events=events)
+
+@main_bp.route('/api/events', methods=['GET'])
+def get_events():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 6, type=int)
+    events = Event.query.order_by(Event.startdate.asc()).paginate(page=page, per_page=per_page, error_out=False)
+    event_data = [{'id': event.id, 'title': event.title, 'startdate': event.startdate.strftime('%B %d, %Y'), 'city': event.city, 'state': event.state, 'country': event.country, 'description': event.description, 'image': event.image} for event in events.items]
+    return jsonify({'events': event_data, 'has_next': events.has_next})
 
 # from flask import Blueprint, render_template, url_for, redirect, flash, request
 # from .forms import EventForm
