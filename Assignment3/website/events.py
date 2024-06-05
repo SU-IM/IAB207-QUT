@@ -38,7 +38,7 @@ def create():
                     state=form.state.data,
                     city=form.city.data,
                     detailed_location=form.detailed_location.data,
-                    image=db_file_path
+                    image=db_file_path,
                     user_id=current_user
                 )
                 db.session.add(event)
