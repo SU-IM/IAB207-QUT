@@ -27,13 +27,11 @@ class Event(db.Model):
     enddate = db.Column(db.DateTime, nullable=False)
     performancetime = db.Column(db.Integer, nullable=False)
     ticketopendate = db.Column(db.DateTime, nullable=False)
-    ticketopeningtime = db.Column(db.DateTime, nullable=False)
     ticketclosedate = db.Column(db.DateTime, nullable=False)
-    ticketclosetime = db.Column(db.DateTime, nullable=False)
     ticketprice = db.Column(db.Integer, nullable=False)
     numberofticket = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    about = db.Column(db.Text, nullable=False)    
+    description = db.Column(db.Text(400), nullable=False)
+    about = db.Column(db.Text(1200), nullable=False)    
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) # author of events
     
     def __repr__(self):

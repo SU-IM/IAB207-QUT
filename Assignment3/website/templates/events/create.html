@@ -116,7 +116,7 @@
                 <div class="col-md-4">
                     <h6>Start date</h6>
                     <div class="input-group mb-3">
-                        {{ form.startdate(class="form-control", id="start-date", min="") }}
+                        {{ form.startdate(class="form-control", id="startdate") }}
                         <div class="invalid-feedback">
                             Please provide a valid date.
                         </div>
@@ -125,7 +125,7 @@
                 <div class="col-md-4">
                     <h6>End date</h6>
                     <div class="input-group mb-3">
-                        {{ form.enddate(class="form-control", id="end-date", min="") }}
+                        {{ form.enddate(class="form-control", id="enddate") }}
                         <div class="invalid-feedback">
                             Please provide a valid date.
                         </div>
@@ -144,8 +144,7 @@
                 <div class="col-md-6">
                     <h6>Ticket opening date</h6>
                     <div class="input-group mb-3">
-                        {{ form.ticketopendate(class="form-control", id="opening-date", min="") }}
-                        {{ form.ticketopentime(class="form-control") }}
+                        {{ form.ticketopendate(class="form-control", id="ticketopendate") }}
                         <div class="invalid-feedback">
                             Please provide a valid date and time.
                         </div>
@@ -154,8 +153,7 @@
                 <div class="col-md-6">
                     <h6>Ticket closing date</h6>
                     <div class="input-group mb-3">
-                        {{ form.ticketclosedate(class="form-control", id="closing-date", min="") }}
-                        {{ form.ticketclosetime(class="form-control") }}
+                        {{ form.ticketclosedate(class="form-control", id="ticketclosedate") }}
                         <div class="invalid-feedback">
                             Please provide a valid date and time.
                         </div>
@@ -317,11 +315,11 @@
             return [year, month, day].join('-');
         }
 
-        let today = formatDate(new Date());
-        document.getElementById('start-date').setAttribute('min', today);
-        document.getElementById('end-date').setAttribute('min', today);
-        document.getElementById('opening-date').setAttribute('min', today);
-        document.getElementById('closing-date').setAttribute('min', today);
+        const now = new Date().toISOString().slice(0, 16);
+        document.getElementById('startdate').min = now;
+        document.getElementById('enddate').min = now;
+        document.getElementById('ticketopendate').min = now;
+        document.getElementById('ticketclosedate').min = now;
 
         function validateTicketNumber(input) {
             if (input.value === '') {

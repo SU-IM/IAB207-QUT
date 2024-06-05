@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField, TimeField, DateField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, IntegerField, DateTimeLocalField
 from wtforms.validators import InputRequired, Email, EqualTo, DataRequired
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -29,13 +29,11 @@ class EventsForm(FlaskForm):
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, JPEG, png, jpg, jpeg')])
     title = StringField('Event Name', validators=[InputRequired()])
-    startdate = DateField('Start Date', validators=[InputRequired()])
-    enddate = DateField('End Date', validators=[InputRequired()])
+    startdate = DateTimeLocalField('Start Date', validators=[InputRequired()])
+    enddate = DateTimeLocalField('End Date', validators=[InputRequired()])
     performancetime = StringField('Performance Time', validators=[InputRequired()])
-    ticketopendate = DateField('Ticket Opening Date', validators=[InputRequired()])
-    ticketopentime = TimeField('Ticket Opening Time', validators=[DataRequired()])
-    ticketclosedate = DateField('Ticket Closing Date', validators=[InputRequired()])
-    ticketclosetime = TimeField('Ticket Closing Time', validators=[DataRequired()])
+    ticketopendate = DateTimeLocalField('Ticket Opening Date', validators=[InputRequired()])
+    ticketclosedate = DateTimeLocalField('Ticket Closing Date', validators=[InputRequired()]) 
     ticketprice = StringField('Ticket Price', validators=[InputRequired()])
     numberofticket = IntegerField('Total Number of Tickets', validators=[InputRequired()])
     description = TextAreaField('Short Description',

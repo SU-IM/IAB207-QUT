@@ -15,42 +15,34 @@ def create():
     form = EventsForm()
     
     if request.method == 'POST':
-        form.state.choices = [(state, state) for state in get_states(form.country.data)]
-        form.city.choices = [(city, city) for city in get_cities(form.state.data)]
+      form.state.choices = [(state, state) for state in get_states(form.country.data)]
+      form.city.choices = [(city, city) for city in get_cities(form.state.data)]
         
-        if form.validate_on_submit():
-            print('Form validated successfully')
-            try:
-                db_file_path = check_upload_file(form)
-                print(f'File uploaded to {db_file_path}')
-                event = Event(
-                    title=form.title.data,
-                    startdate=form.startdate.data,
-                    enddate=form.enddate.data,
-                    performancetime=form.performancetime.data,
-                    ticketopendate=form.ticketopendate.data,
-                    ticketclosedate=form.ticketclosedate.data,
-                    ticketprice=form.ticketprice.data,
-                    numberofticket=form.numberofticket.data,
-                    description=form.description.data,
-                    about=form.about.data,
-                    country=form.country.data,
-                    state=form.state.data,
-                    city=form.city.data,
-                    detailed_location=form.detailed_location.data,
-                    image=db_file_path,
-                    user_id=current_user
-                )
-                db.session.add(event)
-                db.session.commit()
-                flash('Successfully created new event!', 'success')
-                return redirect(url_for('events.create'))
-            except Exception as e:
-                print(f'Error creating event: {e}')
-                flash('Error creating event', 'danger')
-        else:
-            print('Form validation failed')
-            print(form.errors)
+      if form.validate_on_submit():
+        db_file_path = check_upload_file(form)
+        print(f'File uploaded to {db_file_path}')
+        event = Event(
+          title=form.title.data,
+          startdate=form.startdate.data,
+          enddate=form.enddate.data,
+          performancetime=form.performancetime.data,
+          ticketopendate=form.ticketopendate.data,
+          ticketclosedate=form.ticketclosedate.data,
+          ticketprice=form.ticketprice.data,
+          numberofticket=form.numberofticket.data,
+          description=form.description.data,
+          about=form.about.data,
+          country=form.country.data,
+          state=form.state.data,
+          city=form.city.data,
+          detailed_location=form.detailed_location.data,
+          image=db_file_path,
+          user_id=current_user.id
+        )
+        db.session.add(event)
+        db.session.commit()
+        flash('Successfully created new event!', 'success')
+        return redirect(url_for('events.create'))
     else:
         # GET 요청의 경우 기본 선택지를 설정합니다.
         form.state.choices = [('','Choose region...')]
