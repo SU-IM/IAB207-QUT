@@ -1,67 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create Event · Enterpark</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+{% block head %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/styles/styles.css">
-</head>
+{% endblock %}
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Enterpark</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="userBookingHistory.html">My page</a>
-                    </li>
-                </ul>
-                <a class="btn login-button me-2" href="{{ url_for('auth.logout') }}">Logout</a>
-                <a class="btn login-button ms-2" href="{{ url_for('events.create') }}">Create Event</a>
-            </div>
-        </div>
-    </nav>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var lastScrollTop = 0;
-            var navbar = document.querySelector('.navbar');
-            var debounceTimer;
-        
-            window.addEventListener("scroll", function() {
-                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(function() {
-                    if (scrollTop > lastScrollTop) {
-                        navbar.style.top = "-80px";
-                    } else {
-                        navbar.style.top = "0";
-                    }
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                }, 100);
-            });
-        });
-    </script>
-
+{% block content %}  
     <div class="background-image" style="height: 30vh; padding: 70px;">
         <div class="container">
             <h1 style="color: #ffffff;">Create your event!</h1>
@@ -327,37 +270,4 @@
             }
         }
     </script>
-
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="d-flex justify-content-center justify-content-lg-between p-4">
-            <div class="container-fluid">
-                <div class="row justify-content-between">
-                    <div class="col-12 col-md-2">
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Enter your email address" aria-label="Recipient's email">
-                            <button class="btn btn-primary" type="button" id="subscription-button">Subscribe Now</button>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 text-md-end">
-                        <button onclick="window.location.href='https://facebook.com';" class="btn text-reset">
-                            <img src="{{ url_for('static', filename='img/facebook.svg') }}" alt="facebook" class="icon-large">
-                        </button>
-                        <button onclick="window.location.href='https://twitter.com';" class="btn text-reset">
-                            <img src="{{ url_for('static', filename='img/twitter-x.svg') }}" alt="twitter" class="icon-large">
-                        </button>
-                        <button onclick="window.location.href='https://instagram.com';" class="btn text-reset">
-                            <img src="{{ url_for('static', filename='img/instagram.svg') }}" alt="instagram" class="icon-large">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </footer>    
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+{% endblock %}
