@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for, redirect, flash, request
+from .models import Event
+from datetime import datetime
+from . import db
 
 main_bp = Blueprint('main', __name__)
 
@@ -20,6 +23,31 @@ def internal_server_error(e):
     return render_template('500.html'), 500
 
 
+@main_bp.route('/search')
+def search():
+    query = request.args.get('search')
+    place = request.args.get('place')
+    date = request.args.get('date')
+    
+    filters = []
+    if query:
+        filters.append((Event.title.ilike(f'%{query}%')) | (Event.description.ilike(f'%{query}%')))
+    if place:
+        filters.append((Event.city.ilike(f'%{place}%')) | (Event.state.ilike(f'%{place}%')) | (Event.country.ilike(f'%{place}%')))
+    if date:
+        try:
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            print(f"Filtering events on date: {date_obj}")
+            filters.append(db.func.date(Event.startdate) == date_obj)
+        except ValueError:
+            print(f"Invalid date format: {date}")
+    
+    if filters:
+        events = Event.query.filter(*filters).all()
+    else:
+        events = Event.query.all()
+        
+    return render_template('index.html', events=events)
 
 # from flask import Blueprint, render_template, url_for, redirect, flash, request
 # from .forms import EventForm
