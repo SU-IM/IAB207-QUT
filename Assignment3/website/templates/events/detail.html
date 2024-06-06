@@ -1,81 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Event · Enterpark</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+{% block head %}
     <!-- Bootstrap-Select CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
         rel="stylesheet">
-    <link href="../static/styles/styles.css" rel="stylesheet">
-</head>
+{% endblock %}
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="indexLoggedin.html">Enterpark</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="indexLoggedin.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="userBookingHistory.html">My page</a>
-                    </li>
-                </ul>
-                <a class="btn login-button me-2" href="index.html">Logout</a>
-                <a class="btn login-button ms-2" href="{{ url_for('main.create_event') }}">Create Event</a>
-            </div>
-            </ul>
-        </div>
-        </div>
-    </nav>
-
-    <!-- Nav bar display logic according to scrolling -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var lastScrollTop = 0;
-            var navbar = document.querySelector('.navbar');
-            var debounceTimer;
-
-            window.addEventListener("scroll", function () {
-                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                clearTimeout(debounceTimer);
-                debounceTimer = setTimeout(function () {
-                    if (scrollTop > lastScrollTop) {
-                        // Scroll down
-                        navbar.style.top = "-80px";
-                    } else {
-                        // Scroll up
-                        navbar.style.top = "0";
-                    }
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                }, 100);
-            });
-        });
-    </script>
-
+{% block content %}
     <!-- Main background area: Text -->
     <div class="background-image" style="
         height: 50vh;
         padding: 15px;
     ">
         <div style="display: flex; justify-content: center; align-items: center;">
-            <img src="static/img/ive_concert.jpeg" alt="Description"
+            <img src="../{{ event.image }}" alt="Description"
                 style="max-width: 800px; height: auto; width: 100%; border-radius: 20px;">
         </div>
     </div>
@@ -89,34 +27,34 @@
                             <form>
                                 <div class="row g-2">
                                     <div class="col-4">
-                                        <h6 style="color: #6737D0;">Sunday, July 28</h6>
+                                        <h6 style="color: #6737D0;">{{ event.startdate }}</h6>
                                     </div>
                                     <div class="col-4 d-flex justify-content-end">
                                         <button class="btn"
                                             style="display: flex; justify-content: center; align-items: center;">
-                                            <img src="static/img/star.svg" class="icon-large">
+                                            <img src="../static/img/star.svg" class="icon-large">
                                         </button>
                                         <button class="btn"
                                             style="display: flex; justify-content: center; align-items: center;">
-                                            <img src="static/img/box-arrow-up.svg" class="icon-large">
+                                            <img src="../static/img/box-arrow-up.svg" class="icon-large">
                                         </button>
                                     </div>
 
                                     <div class="w-100 d-none d-md-block"></div>
 
                                     <div class="col-12">
-                                        <h1>IVE the 1ST World Tour SHOW WHAT i HAVE | Sydney</h1>
+                                        <h1>{{ event.title }} | {{ event.city }}</h1>
                                     </div>
-
+                                    
                                     <div class="col-12">
-                                        <p>Get ready to DIVE into IVE! The K-pop sensations will bring their 1ST WORLD
-                                            TOUR 'SHOW WHAT I HAVE' to Qudos Bank Arena Saturday 28 July 2024!</p>
+                                        <p>{{ event.description }}</p>
                                     </div>
-
+                                    
                                     <div class="col-12 mb-3">
                                         <h4>Location</h4>
-                                        <p>Qudos Bank Arena</p>
-                                        <p class="card-subtitle text-body-secondary">19 Edwin Flack Ave, Sydney Olympic Park NSW 2127</p>
+                                        <p class="card-subtitle text-body-secondary" style="white-space: pre-line;">{{ event.detailed_location }}
+                                            {{ event.city }}, {{ event.state }}, {{ event.country }}
+                                        </p>
                                     </div>
 
                                     <div class="col-12 mb-3">
@@ -128,21 +66,12 @@
 
                                     <div class="col-12 mb-3">
                                         <h4>Event Time</h4>
-                                        <p class="card-subtitle text-body-secondary">TBA (To be announced)</p>
+                                        <p>{{ event.performancetime }} min</p>
                                     </div>
 
                                     <div class="col-12 mb-3">
                                         <h4>About this event</h4>
-                                        <p>One of the fastest-growing K-Pop groups IVE have announced their first global outing - <br>
-                                            1ST WORLD TOUR 'SHOW WHAT I HAVE'.<br>
-                                            <br>
-                                            The 24-date world tour will hit various cities across Southeast Asia, North America, Europe, the U.K., South America, Eastern Asia and Australia in 2024.<br>
-                                            <br>
-                                            IVE formed in 2021 and grew to major success following the release of their first single, 'ELEVEN' which went on to win multiple awards, alongside their other title tracks.<br>
-                                            <br>
-                                            This year, IVE released their first full-length album [I've IVE], selling more than 1.1 million copies in the first week.<br>
-                                            <br>
-                                            The group kicked off their 1ST WORLD TOUR 'SHOW WHAT I HAVE' with two incredible sold-out shows last month in Seoul.</p>
+                                        <p>{{ event.about }}</p>
                                     </div>
 
                                     <div class="col-12">
@@ -410,38 +339,4 @@
             updateTotalPrice();
         });
     </script>
-
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="d-flex justify-content-center justify-content-lg-between p-4">
-            <div class="container-fluid">
-                <div class="row justify-content-between">
-                    <div class="col-12 col-md-2">
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Enter your email address"
-                                aria-label="Recipient's email">
-                            <button class="btn btn-primary" type="button" id="subscription-button">Subscribe
-                                Now</button>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 text-md-end">
-                        <button onclick="window.location.href='https://facebook.com';" class="btn text-reset">
-                            <img src="static/img/facebook.svg" alt="facebook" class="icon-large">
-                        </button>
-                        <button onclick="window.location.href='https://twitter.com';" class="btn text-reset">
-                            <img src="static/img/twitter-x.svg" alt="twitter" class="icon-large">
-                        </button>
-                        <button onclick="window.location.href='https://instagram.com';" class="btn text-reset">
-                            <img src="static/img/instagram.svg" alt="instagram" class="icon-large">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
-</body>
-
-</html>
+{% endblock %}

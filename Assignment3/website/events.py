@@ -8,6 +8,11 @@ from flask_login import login_required, current_user
 
 events_bp = Blueprint('events', __name__, url_prefix='/events')
 
+@events_bp.route('/<int:event_id>')
+def event_detail(event_id):
+    event = Event.query.get_or_404(event_id)
+    return render_template('events/detail.html', event=event)
+
 @events_bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
