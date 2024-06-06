@@ -41,8 +41,8 @@ class EventsForm(FlaskForm):
             validators=[InputRequired()])
     about = TextAreaField('About this event', validators=[InputRequired()])
     country = SelectField('Country', choices=[('USA', 'USA'), ('Canada', 'Canada'), ('UK', 'United Kingdom'), ('AU', 'Australia'), ('SouthKorea', 'South Korea')], validators=[DataRequired()])
-    state = SelectField('State', choices=[], validators=[DataRequired()])
-    city = SelectField('City', choices=[], validators=[DataRequired()])
+    state = SelectField('State', choices=[])
+    city = SelectField('City', choices=[])
     detailed_location = StringField('Detailed Location', validators=[DataRequired()])
     submit = SubmitField("Create")
     

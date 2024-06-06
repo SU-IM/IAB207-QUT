@@ -36,6 +36,7 @@ def create():
                 ticketclosedate=form.ticketclosedate.data,
                 ticketprice=form.ticketprice.data,
                 numberofticket=form.numberofticket.data,
+                ticketlimit=form.ticketlimit.data if form.ticketlimit.data else None,  # Handle optional ticketlimit
                 description=form.description.data,
                 about=form.about.data,
                 country=form.country.data,
@@ -45,12 +46,19 @@ def create():
                 image=db_file_path,
                 user_id=current_user.id
             )
-            db.session.add(event)
-            db.session.commit()
-            flash('Successfully created new event!', 'success')
-            return redirect(url_for('events.create'))
+            try:
+                db.session.add(event)
+                db.session.commit()
+                flash('Successfully created new event!', 'success')
+                return redirect(url_for('user.userhistory'))
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Error: {str(e)}', 'danger')
+                print(f'Error: {str(e)}')
+        else:
+            flash('Form validation failed. Please check your input.', 'danger')
+            print(form.errors)
     else:
-        # GET 요청의 경우 기본 선택지를 설정합니다.
         form.state.choices = [('','Choose region...')]
         form.city.choices = [('','Choose city/state...')]
         
