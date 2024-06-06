@@ -23,33 +23,6 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
-
-@main_bp.route('/search')
-def search():
-    query = request.args.get('search')
-    place = request.args.get('place')
-    date = request.args.get('date')
-    
-    filters = []
-    if query:
-        filters.append((Event.title.ilike(f'%{query}%')) | (Event.description.ilike(f'%{query}%')))
-    if place:
-        filters.append((Event.city.ilike(f'%{place}%')) | (Event.state.ilike(f'%{place}%')) | (Event.country.ilike(f'%{place}%')))
-    if date:
-        try:
-            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
-            print(f"Filtering events on date: {date_obj}")
-            filters.append(db.func.date(Event.startdate) == date_obj)
-        except ValueError:
-            print(f"Invalid date format: {date}")
-    
-    if filters:
-        events = Event.query.filter(*filters).all()
-    else:
-        events = Event.query.all()
-        
-    return render_template('index.html', events=events)
-
 @main_bp.route('/api/events', methods=['GET'])
 def get_events():
     page = request.args.get('page', 1, type=int)
@@ -58,35 +31,30 @@ def get_events():
     event_data = [{'id': event.id, 'title': event.title, 'startdate': event.startdate.strftime('%B %d, %Y'), 'city': event.city, 'state': event.state, 'country': event.country, 'description': event.description, 'image': event.image} for event in events.items]
     return jsonify({'events': event_data, 'has_next': events.has_next})
 
-# from flask import Blueprint, render_template, url_for, redirect, flash, request
-# from .forms import EventForm
-# from .models import Event
-# from . import db
-# from werkzeug.utils import secure_filename
-# import os
+@main_bp.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('search')
+    place = request.args.get('place')
+    date = request.args.get('date')
 
-# main_bp = Blueprint('main', __name__)
+    filters = []
+    if query:
+        filters.append((Event.title.ilike(f'%{query}%')) | (Event.description.ilike(f'%{query}%')))
+    if place:
+        filters.append((Event.city.ilike(f'%{place}%')) | (Event.state.ilike(f'%{place}%')) | (Event.country.ilike(f'%{place}%')))
+    if date:
+        try:
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            filters.append(db.func.date(Event.startdate) == date_obj)
+        except ValueError:
+            print(f"Invalid date format: {date}")
 
-# @main_bp.route('/')
-# def index():
-#     return render_template('index.html')
+    if filters:
+        events = Event.query.filter(*filters).all()
+    else:
+        events = Event.query.all()
 
-# #create event 
-# @main.route('/create-event', methods=['GET', 'POST'])
-# def create_event():
-#     form = EventForm()
-#     if form.validate_on_submit():
-#         file = form.image.data
-#         filename = secure_filename(file.filename)
-#         file.save(os.path.join(current_app.config['UPLOAD_FOLDER'],filename))
-        
-#         event = Event(title=form.title.data, description=form.description.data, data=form.date.data, image_url=filename)
-#         db.session.add(event)
-#         db.session.commit()
-#         flash('Your event has been created!', 'success')
-#         return redirect(url_for('main.home'))
-#     return render_template('eventCreate.html', form=form)
+    event_data = [{'id': event.id, 'title': event.title, 'startdate': event.startdate.strftime('%B %d, %Y'), 'city': event.city, 'state': event.state, 'country': event.country, 'description': event.description, 'image': event.image} for event in events]
 
-
-#
+    return jsonify({'events': event_data})
         

@@ -35,6 +35,8 @@ def create_app():
     app.register_blueprint(events.events_bp)
     from . import auth
     app.register_blueprint(auth.auth_bp)
+    from . import user
+    app.register_blueprint(user.user_bp)
     
     # this creates a dictionary of variables that are available
     # to all html templates

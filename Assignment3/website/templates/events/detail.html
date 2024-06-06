@@ -1,342 +1,319 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <!-- Bootstrap-Select CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
-        rel="stylesheet">
+<!-- Bootstrap-Select CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+    rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    <!-- Main background area: Text -->
-    <div class="background-image" style="
+<!-- Main background area: Text -->
+<div class="background-image" style="
         height: 50vh;
         padding: 15px;
     ">
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <img src="../{{ event.image }}" alt="Description"
-                style="max-width: 800px; height: auto; width: 100%; border-radius: 20px;">
-        </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="../{{ event.image }}" alt="Description"
+            style="max-width: 800px; height: auto; width: 100%; border-radius: 20px;">
     </div>
+</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
-                <div class="container-fluid" style="max-width: 1000px;">
-                    <div class="card detail-container">
-                        <div class="card-body">
-                            <form>
-                                <div class="row g-2">
-                                    <div class="col-4">
-                                        <h6 style="color: #6737D0;">{{ event.startdate }}</h6>
-                                    </div>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <button class="btn"
-                                            style="display: flex; justify-content: center; align-items: center;">
-                                            <img src="../static/img/star.svg" class="icon-large">
-                                        </button>
-                                        <button class="btn"
-                                            style="display: flex; justify-content: center; align-items: center;">
-                                            <img src="../static/img/box-arrow-up.svg" class="icon-large">
-                                        </button>
-                                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
+            <div class="container-fluid" style="max-width: 1000px;">
+                <div class="card detail-container">
+                    <div class="card-body">
+                        <form>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <h6 style="color: #6737D0;">{{ event.startdate }}</h6>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <button class="btn"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <img src="../static/img/star.svg" class="icon-large">
+                                    </button>
+                                    <button class="btn"
+                                        style="display: flex; justify-content: center; align-items: center;">
+                                        <img src="../static/img/box-arrow-up.svg" class="icon-large">
+                                    </button>
+                                </div>
 
-                                    <div class="w-100 d-none d-md-block"></div>
+                                <div class="w-100 d-none d-md-block"></div>
 
-                                    <div class="col-12">
-                                        <h1>{{ event.title }} | {{ event.city }}</h1>
-                                    </div>
-                                    
-                                    <div class="col-12">
-                                        <p>{{ event.description }}</p>
-                                    </div>
-                                    
-                                    <div class="col-12 mb-3">
-                                        <h4>Location</h4>
-                                        <p class="card-subtitle text-body-secondary" style="white-space: pre-line;">{{ event.detailed_location }}
-                                            {{ event.city }}, {{ event.state }}, {{ event.country }}
-                                        </p>
-                                    </div>
+                                <div class="col-12">
+                                    <h1>{{ event.title }} | {{ event.city }}</h1>
+                                </div>
 
-                                    <div class="col-12 mb-3">
-                                        <h4>Refund Policy</h4>
-                                        <p class="card-subtitle text-body-secondary">Contact the organiser to request a refund.<br>
-                                            Enterpark's fee is nonrefundable.
-                                        </p>
-                                    </div>
+                                <div class="col-12">
+                                    <p>{{ event.description }}</p>
+                                </div>
 
-                                    <div class="col-12 mb-3">
-                                        <h4>Event Time</h4>
-                                        <p>{{ event.performancetime }} min</p>
-                                    </div>
+                                <div class="col-12 mb-3">
+                                    <h4>Location</h4>
+                                    <p class="card-subtitle text-body-secondary" style="white-space: pre-line;">{{
+                                        event.detailed_location }}
+                                        {{ event.city }}, {{ event.state }}, {{ event.country }}
+                                    </p>
+                                </div>
 
-                                    <div class="col-12 mb-3">
-                                        <h4>About this event</h4>
-                                        <p>{{ event.about }}</p>
-                                    </div>
+                                <div class="col-12 mb-3">
+                                    <h4>Refund Policy</h4>
+                                    <p class="card-subtitle text-body-secondary">Contact the organiser to request a
+                                        refund.<br>
+                                        Enterpark's fee is nonrefundable.
+                                    </p>
+                                </div>
 
-                                    <div class="col-12">
-                                        <h4>FAQ</h4>
-                                    </div>
-                                    <div class="accordion" id="FAQaccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" 
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
-                                                    aria-controls="panelsStayOpen-collapseOne">
-                                                    Ticket Purchase Limit and Non-Transferability Policy
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseOne"
-                                                class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    There is a <strong>limit on ticket purchases</strong> per individual, 
-                                                    and tickets purchased are <strong>non-transferable.</strong> 
-                                                    The purchaser is solely responsible for any issues arising from ticket transfer or resale.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                                    aria-controls="panelsStayOpen-collapseTwo">
-                                                    Adherence to Safety Regulations
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseTwo" 
-                                                class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    For safety within the venue, ticket holders must strictly adhere to the safety regulations provided by the organizers.
-                                                    <strong>In case of emergency, please follow the instructions of the organizers and safety personnel.</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                                                    aria-controls="panelsStayOpen-collapseThree">
-                                                    Cyber Security and Fraud Prevention Measures
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapseThree" 
-                                                class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    Online ticket sales are conducted exclusively through official channels. 
-                                                    <strong>Please use official ticket outlets to protect your personal information and beware of cyber scams.</strong>
-                                                </div>
+                                <div class="col-12 mb-3">
+                                    <h4>Event Time</h4>
+                                    <p>{{ event.performancetime }} min</p>
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <h4>About this event</h4>
+                                    <p>{{ event.about }}</p>
+                                </div>
+
+                                <div class="col-12">
+                                    <h4>FAQ</h4>
+                                </div>
+                                <div class="accordion" id="FAQaccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                                                aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                                Ticket Purchase Limit and Non-Transferability Policy
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                There is a <strong>limit on ticket purchases</strong> per individual,
+                                                and tickets purchased are <strong>non-transferable.</strong>
+                                                The purchaser is solely responsible for any issues arising from ticket
+                                                transfer or resale.
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12">
-                                            <h4>Comments</h4>
-                                            <div class="list-group">
-                                                <div class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <img src="static/img/user1.jpg" class="rounded" width= "50px" height= "auto"
-                                                                alt="User Profile">
-                                                        </div>
-                                                        <div class="col">
-                                                            <h5>Vong bong</h5>
-                                                            <p>The concert in Seoul was the best.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <img src="static/img/user2.jpg" class="rounded" width= "50px" height= "auto"
-                                                                alt="User Profile">
-                                                        </div>
-                                                        <div class="col">
-                                                            <h5>Reng Ho</h5>
-                                                            <p>I hope they come to my city too!</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <img src="static/img/user3.jpg" class="rounded" width= "50px" height= "auto"
-                                                                alt="User Profile">
-                                                        </div>
-                                                        <div class="col">
-                                                            <h5>April</h5>
-                                                            <p>Just so, if you're gonna dye, just come in mat-dye.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <img src="static/img/user4.jpg" class="rounded" width= "50px" height= "auto"
-                                                                alt="User Profile">
-                                                        </div>
-                                                        <div class="col">
-                                                            <h5>Yutah</h5>
-                                                            <p>:)</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
+                                                aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                                Adherence to Safety Regulations
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                For safety within the venue, ticket holders must strictly adhere to the
+                                                safety regulations provided by the organizers.
+                                                <strong>In case of emergency, please follow the instructions of the
+                                                    organizers and safety personnel.</strong>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12">
-                                            <form>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Write a comment...">
-                                                    <button type="submit" class="button">Post</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12">
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination">
-                                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                                </ul>
-                                            </nav>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
+                                                aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                                Cyber Security and Fraud Prevention Measures
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                Online ticket sales are conducted exclusively through official channels.
+                                                <strong>Please use official ticket outlets to protect your personal
+                                                    information and beware of cyber scams.</strong>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ticket Info -->
-            <div class="col-12 col-md-4 order-1 order-md-2 mb-3">
-                <div class="container-fluid">
-                    <div class="card detail-container">
-                        <div class="card-body">
-                            <form>
-                                <div class="row g-2">
-                                    <div class="col-sm">
-                                        <h6 style="color: #6737D0;">Ticket</h6>
-                                    </div>
-
-                                    <div class="w-100 d-none d-md-block"></div>
-
-                                    <div class="col-sm">
-                                        <p>
-                                            Seating area <br>
-                                            $99.00 per
-                                        </p>
-                                    </div>
-
-                                    <div class="col-sm">
-                                        <div class="input-group" style="max-width: 120px;">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="ticket-1d">-</button>
-                                            <input type="text" class="form-control text-center" value="0"
-                                                aria-label="Ticket count" id="ticket-1count">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="ticket-1i">+</button>
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h4>Comments</h4>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <img src="static/img/user1.jpg" class="rounded" width="50px"
+                                                            height="auto" alt="User Profile">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Vong bong</h5>
+                                                        <p>The concert in Seoul was the best.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <img src="static/img/user2.jpg" class="rounded" width="50px"
+                                                            height="auto" alt="User Profile">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Reng Ho</h5>
+                                                        <p>I hope they come to my city too!</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <img src="static/img/user3.jpg" class="rounded" width="50px"
+                                                            height="auto" alt="User Profile">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>April</h5>
+                                                        <p>Just so, if you're gonna dye, just come in mat-dye.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <img src="static/img/user4.jpg" class="rounded" width="50px"
+                                                            height="auto" alt="User Profile">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>Yutah</h5>
+                                                        <p>:)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="w-100 d-none d-md-block"></div>
-
-                                    <div class="col-sm">
-                                        <p>
-                                            Standing area <br>
-                                            $129.00 per
-                                        </p>
-                                    </div>
-
-                                    <div class="col-sm">
-                                        <div class="input-group" style="max-width: 120px;">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="ticket-2d">-</button>
-                                            <input type="text" class="form-control text-center" value="0"
-                                                aria-label="Ticket count" id="ticket-2count">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="ticket-2i">+</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-100 d-none d-md-block">
-                                        <p id="error-message" style="color: red;"></p>
-                                    </div>
-
-                                    <div class="col-sm">
-                                        <h3>Total Price</h3>
-                                        <p id="total-price">$0.00</p>
-                                    </div>
-                                    <div class="col-sm d-flex align-items-end">
-                                        <button type="button" class="button w-100">Select Seat</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <form>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Write a comment...">
+                                                <button type="submit" class="button">Post</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Ticket Info -->
+        <div class="col-12 col-md-4 order-1 order-md-2 mb-3">
+            <div class="container-fluid">
+                <div class="card detail-container">
+                    <div class="card-body">
+                        <form>
+                            <div class="row g-2">
+                                <div class="col-sm">
+                                    <h6 style="color: #6737D0;">Ticket</h6>
+                                </div>
+        
+                                <div class="w-100 d-none d-md-block"></div>
+        
+                                <div class="col-sm">
+                                    <p>
+                                        ${{ event.ticketprice }} per
+                                    </p>
+                                </div>
+        
+                                <div class="col-sm">
+                                    <div class="input-group" style="max-width: 120px;">
+                                        <button class="btn btn-outline-secondary" type="button" id="ticket-1d">-</button>
+                                        <input type="text" class="form-control text-center" value="0"
+                                            aria-label="Ticket count" id="ticket-1count">
+                                        <button class="btn btn-outline-secondary" type="button" id="ticket-1i">+</button>
+                                    </div>
+                                </div>
+                                <div class="w-100 d-none d-md-block">
+                                    <p id="error-message" style="color: red;"></p>
+                                </div>
+        
+                                <div class="col-sm">
+                                    <h3>Total Price</h3>
+                                    <p id="total-price">$0.00</p>
+                                </div>
+                                <div class="col-sm d-flex align-items-end">
+                                    <button type="button" class="button w-100" id="book-button" disabled onclick="bookTickets()">Book</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const ticketPrice = parseFloat("{{ event.ticketprice }}");
+            const ticketLimit = parseFloat("{{ event.ticketlimit if event.ticketlimit is not none else 'null' }}");
+            const bookButton = document.getElementById('book-button');
+            const eventId = parseFloat("{{ event.id }}");
+
+            function updateTotalPrice() {
+                var ticket1Count = parseInt(document.getElementById('ticket-1count').value, 10);
+                var totalPrice = ticket1Count * ticketPrice;
+
+                if (ticketLimit !== null && ticket1Count > ticketLimit) {
+                    document.getElementById('error-message').innerText = `You cannot select more than ${ticketLimit} tickets.`;
+                    bookButton.disabled = true;
+                    return;
+                } else if (ticket1Count <= 0) {
+                    document.getElementById('error-message').innerText = 'You must select at least 1 ticket.';
+                    bookButton.disabled = true;
+                    return;
+                } else {
+                    document.getElementById('error-message').innerText = '';
+                    bookButton.disabled = false;
+                }
+
+                document.getElementById('total-price').innerText = `$${totalPrice.toFixed(2)}`;
+            }
+
+            document.getElementById('ticket-1d').addEventListener('click', function () {
+                var ticketInput = document.getElementById('ticket-1count');
+                var currentValue = parseInt(ticketInput.value, 10);
+                if (currentValue > 0) {
+                    ticketInput.value = currentValue - 1;
+                    updateTotalPrice();
+                }
+            });
+
+            document.getElementById('ticket-1i').addEventListener('click', function () {
+                var ticketInput = document.getElementById('ticket-1count');
+                var currentValue = parseInt(ticketInput.value, 10);
+                ticketInput.value = currentValue + 1;
+                updateTotalPrice();
+            });
+
+            function bookTickets() {
+                var ticketCount = document.getElementById('ticket-1count').value;
+                window.location.href = `/events/${eventId}/book?ticket-count=${ticketCount}`;
+            }
+
+            // 초기화
+            window.onload = function () {
+                updateTotalPrice();
+            }
+        </script>
     </div>
-
-    <script>
-        const ticket1Price = 99;
-        const ticket2Price = 129;
-
-        function updateTotalPrice() {
-            var ticket1Count = parseInt(document.getElementById('ticket-1count').value, 10);
-            var ticket2Count = parseInt(document.getElementById('ticket-2count').value, 10);
-            var totalPrice = (ticket1Count * ticket1Price) + (ticket2Count * ticket2Price);
-            var totalTickets = ticket1Count + ticket2Count;
-
-            if (totalTickets > 4) {
-                document.getElementById('error-message').innerText = 'You cannot select more than 4 tickets.';
-                return;
-            } else {
-                document.getElementById('error-message').innerText = '';
-            }
-
-            document.getElementById('total-price').innerText = `$${totalPrice.toFixed(2)}`;
-        }
-
-        document.getElementById('ticket-1d').addEventListener('click', function () {
-            var ticketInput = document.getElementById('ticket-1count');
-            var currentValue = parseInt(ticketInput.value, 10);
-            if (currentValue > 0) {
-                ticketInput.value = currentValue - 1;
-                updateTotalPrice();
-            }
-        });
-
-        document.getElementById('ticket-1i').addEventListener('click', function () {
-            var ticketInput = document.getElementById('ticket-1count');
-            var currentValue = parseInt(ticketInput.value, 10);
-            ticketInput.value = currentValue + 1;
-            updateTotalPrice();
-        });
-
-        document.getElementById('ticket-2d').addEventListener('click', function () {
-            var ticketInput = document.getElementById('ticket-2count');
-            var currentValue = parseInt(ticketInput.value, 10);
-            if (currentValue > 0) {
-                ticketInput.value = currentValue - 1;
-                updateTotalPrice();
-            }
-        });
-
-        document.getElementById('ticket-2i').addEventListener('click', function () {
-            var ticketInput = document.getElementById('ticket-2count');
-            var currentValue = parseInt(ticketInput.value, 10);
-            ticketInput.value = currentValue + 1;
-            updateTotalPrice();
-        });
-    </script>
+</div>
 {% endblock %}

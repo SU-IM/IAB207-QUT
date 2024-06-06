@@ -36,6 +36,7 @@ class EventsForm(FlaskForm):
     ticketclosedate = DateTimeLocalField('Ticket Closing Date', validators=[InputRequired()]) 
     ticketprice = StringField('Ticket Price', validators=[InputRequired()])
     numberofticket = IntegerField('Total Number of Tickets', validators=[InputRequired()])
+    ticketlimit = IntegerField('Set a limit on the number of tickets reserved at one time')
     description = TextAreaField('Short Description',
             validators=[InputRequired()])
     about = TextAreaField('About this event', validators=[InputRequired()])
@@ -46,13 +47,13 @@ class EventsForm(FlaskForm):
     submit = SubmitField("Create")
     
 #booking page
-# class BookingForm(FlaskForm):
-#     event_id = SelectField('Event', coerce=int, validators={DataRequired()})
-#     ticket_number = IntegerField('Number of Tickets', validators=[DataRequired()])
-#     name = StringField('Your Name', validators=[DataRequired()])
-#     contact = StringField('Contact Number', validators=[DataRequired()])
-#     booking_date = SelectField('Booking Date', validators=[DataRequired()])
-#     payment_method = SelectField('Payment Method', choices=['PayPal', 'Credit Card'], validators=[DataRequired()]) #still have to fix
+
+class BookingForm(FlaskForm):
+    name = StringField('Your Name', validators=[DataRequired()])
+    numberoftickets = IntegerField('Number of Tickets', validators=[DataRequired()])
+    contactemail = StringField('Contact Email', validators=[DataRequired()])
+    contactnumber = StringField('Contact Number', validators=[DataRequired()])
+    paymentmethod = SelectField('Payment Method', choices=[('PayPal', 'PayPal'), ('Credit Card', 'Credit Card')], validators=[DataRequired()])
     
-#     submit = SubmitField("Book Now")
+    submit = SubmitField("Book Now")
     

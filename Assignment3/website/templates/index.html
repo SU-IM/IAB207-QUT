@@ -18,7 +18,9 @@
             <div class="carousel-inner">
                 {% for event in featured_events %}
                 <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
-                    <img src="{{ event.image }}" class="d-block w-100" alt="{{ event.title }}">
+                    <a href="{{ url_for('events.event_detail', event_id=event.id) }}">
+                        <img src="{{ event.image }}" class="d-block w-100" alt="{{ event.title }}">
+                    </a>
                     <div class="carousel-caption d-none d-md-block">
                         <h5>{{ event.title }}</h5>
                         <p>{{ event.description }}</p>
@@ -74,7 +76,7 @@
             <h1 class="text">Upcoming Events</h1>
         </div>
     </div>
-
+    
     <div id="event-cards-container">
         <!-- Event cards render here -->
     </div>
@@ -88,16 +90,16 @@
         const perPage = 6;
         const loadMoreBtn = document.getElementById('load-more-btn');
         const eventCardsContainer = document.getElementById('event-cards-container');
-
+    
         function renderEventCards(events) {
             let html = '';
             const rowChunks = [];
             const chunkSize = 3;
-
+    
             for (let i = 0; i < events.length; i += chunkSize) {
                 rowChunks.push(events.slice(i, i + chunkSize));
             }
-
+    
             rowChunks.forEach(rowEvents => {
                 html += '<div class="row">';
                 rowEvents.forEach(event => {
@@ -118,10 +120,10 @@
                 });
                 html += '</div>';
             });
-
+    
             eventCardsContainer.innerHTML += html;
         }
-
+    
         function loadEvents() {
             fetch(`/api/events?page=${currentPage}&per_page=${perPage}`)
                 .then(response => response.json())
@@ -134,9 +136,31 @@
                 })
                 .catch(error => console.error(error));
         }
-
+    
+        function searchEvents(query, place, date) {
+            let url = `/search?search=${query}&place=${place}&date=${date}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    eventCardsContainer.innerHTML = '';  // Clear existing events
+                    renderEventCards(data.events);
+                })
+                .catch(error => console.error(error));
+        }
+    
+        // Initial load of events
         loadEvents();
-
+    
+        // Event listener for the search form
+        const searchForm = document.querySelector('form');
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = document.querySelector('input[name="search"]').value;
+            const place = document.querySelector('input[name="place"]').value;
+            const date = document.querySelector('input[name="date"]').value;
+            searchEvents(query, place, date);
+        });
+    
         loadMoreBtn.addEventListener('click', loadEvents);
     </script>
 </div>

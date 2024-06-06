@@ -118,6 +118,13 @@
                         {{ form.numberofticket(class="form-control", value="0", min="1", oninput="validateTicketNumber(this)") }}
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <h6>Limited number of tickets booking</h6>
+                    <div class="form-text" id="basic-addon4">If left blank, it is set to no limit.</div>
+                    <div class="input-group mb-3">
+                        {{ form.ticketlimit(class="form-control")}}
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <h6>Short description</h6>
                     <div class="input-group mb-3">

@@ -32,6 +32,12 @@ body {
     border-color: #4e2996;
 }
 
+.button:disabled {
+    background-color: #d3d3d3; 
+    color: #808080; 
+    cursor: not-allowed; 
+}
+
 .background-image {
     display: flex;
     justify-content: center;

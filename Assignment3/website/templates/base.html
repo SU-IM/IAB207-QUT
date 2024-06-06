@@ -23,6 +23,11 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link">Welcome back '{{ current_user.username }}'</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
                     </li>
@@ -36,7 +41,7 @@
                         but now it can be viewed even when logged out for example purposes. -->
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="userBookingHistory.html">My page</a>
+                        <a class="nav-link" href="{{ url_for('user.userhistory') }}">My page</a>
                     </li>
                     {% endif %}
                 </ul>
